@@ -21,7 +21,7 @@
     <a href="#collection">Collection</a>
     <a href="#offers">Offers</a>
     <a href="#about">About</a>
-    <a href="#contact">Contact</a><a href="#payment">Payment</a>
+    <a href="#contact">Contact</a><a class="pay-header" href="#payment">💳 Pay Now</a>
   </nav>
 </header>
 
@@ -81,13 +81,27 @@
   </div>
 </section>
 </main>
+<div class="upi-modal" id="upiModal">
+  <div class="upi-modal-box">
+    <button class="upi-close" id="closeUpi">×</button>
+    <p class="eyebrow">PAYMENT</p>
+    <h3>Pay via <em>UPI</em></h3>
+    <p class="upi-order-total">Order Total: <strong id="upiModalTotal">₹0</strong></p>
+    <img src="upi-qr.png" alt="ANAND ENTERPRISES UPI QR" class="upi-modal-qr">
+    <p class="scan-text">Scan this QR with Google Pay, PhonePe, Paytm or another UPI app.</p>
+    <div class="modal-upi-id"><small>UPI ID</small><b>7007596728@ptyes</b></div>
+    <a id="modalPayLink" class="btn gold modal-pay" href="upi://pay?pa=7007596728%40ptyes&pn=ANAND%20ENTERPRISES&cu=INR">Open UPI App</a>
+    <button id="paidContinue" class="paid-continue">✓ Payment Done — Continue to WhatsApp</button>
+  </div>
+</div>
+
 
 <div class="cart-overlay" id="cartOverlay"></div>
 <aside class="cart-drawer" id="cartDrawer">
 <div class="cart-head"><div><small>YOUR ORDER</small><h3>Shopping Cart</h3></div><button id="closeCart">×</button></div>
 <div id="cartItems" class="cart-items"></div>
 <div class="cart-bottom"><div class="cart-total"><span>Total</span><strong id="cartTotal">₹0</strong></div>
-<button class="checkout-btn" id="checkoutBtn">Order on WhatsApp</button><button class="clear-btn" id="clearCart">Clear Cart</button></div>
+<button class="checkout-btn upi-checkout" id="cartPayUpi">💳 Pay Now via UPI</button><button class="checkout-btn" id="checkoutBtn">📲 Order on WhatsApp</button><button class="clear-btn" id="clearCart">Clear Cart</button></div>
 </aside>
 <section id="payment" class="payment-section">
   <div class="payment-inner">

@@ -26,3 +26,13 @@ function updateUpiPayLink(){
 const originalRender=render;
 render=function(){originalRender();updateUpiPayLink();};
 render();
+
+const cartPayUpi=document.getElementById("cartPayUpi");
+if(cartPayUpi){cartPayUpi.addEventListener("click",()=>{const total=cart.reduce((s,x)=>s+x.price*x.qty,0);if(!total){alert("Your cart is empty.");return}const u="upi://pay?pa=7007596728%40ptyes&pn=ANAND%20ENTERPRISES&am="+total.toFixed(2)+"&cu=INR";window.location.href=u;});}
+
+const upiModal=document.getElementById("upiModal"),closeUpi=document.getElementById("closeUpi"),modalTotal=document.getElementById("upiModalTotal"),modalPay=document.getElementById("modalPayLink"),paidContinue=document.getElementById("paidContinue");
+const openPayment=()=>{const total=cart.reduce((s,x)=>s+x.price*x.qty,0);if(!total){alert("Your cart is empty.");return}modalTotal.textContent="₹"+total;modalPay.href="upi://pay?pa=7007596728%40ptyes&pn=ANAND%20ENTERPRISES&am="+total.toFixed(2)+"&cu=INR";upiModal.classList.add("show")};
+if(cartPayUpi){cartPayUpi.onclick=openPayment}
+if(closeUpi){closeUpi.onclick=()=>upiModal.classList.remove("show")}
+if(upiModal){upiModal.addEventListener("click",e=>{if(e.target===upiModal)upiModal.classList.remove("show")})}
+if(paidContinue){paidContinue.onclick=()=>{upiModal.classList.remove("show");checkoutBtn.click()}}
