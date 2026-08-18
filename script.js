@@ -13,3 +13,16 @@ function render(){const count=cart.reduce((s,x)=>s+x.qty,0),total=cart.reduce((s
 document.getElementById("clearCart").addEventListener("click",()=>{cart=[];save()});
 document.getElementById("checkoutBtn").addEventListener("click",()=>{if(!cart.length){alert("Your cart is empty.");return}const lines=cart.map(x=>`${x.name} x ${x.qty} = ₹${x.price*x.qty}`).join("\n");const total=cart.reduce((s,x)=>s+x.price*x.qty,0);const msg=`Hello Anand Enterprises,\n\nI want to order:\n${lines}\n\nTotal: ₹${total}\n\nPlease confirm availability and delivery details.`;window.open("https://wa.me/917007596728?text="+encodeURIComponent(msg),"_blank")});
 render();
+const copyUpi=document.getElementById("copyUpi");
+if(copyUpi){copyUpi.addEventListener("click",()=>{navigator.clipboard.writeText("7007596728@ptyes").then(()=>{copyUpi.textContent="Copied ✓";setTimeout(()=>copyUpi.textContent="Copy UPI ID",1800)}).catch(()=>alert("UPI ID: 7007596728@ptyes"));});}
+const payUpi=document.getElementById("payUpi");
+function updateUpiPayLink(){
+  if(!payUpi)return;
+  const total=cart.reduce((s,x)=>s+x.price*x.qty,0);
+  const params=new URLSearchParams({pa:"7007596728@ptyes",pn:"ANAND ENTERPRISES",cu:"INR"});
+  if(total>0)params.set("am",total.toFixed(2));
+  payUpi.href="upi://pay?"+params.toString();
+}
+const originalRender=render;
+render=function(){originalRender();updateUpiPayLink();};
+render();
